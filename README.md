@@ -22,7 +22,7 @@ Before you begin, ensure you have the following installed:
 To get started, clone this repository using the following command:
 
 ```sh
-git clone <https://github.com/developer-mindpath/job-listing-portal.git>
+git clone <https://github.com/krishan1408/job-listing-portal.git>
 ```
 
 ```bash
@@ -77,4 +77,4 @@ job-listing-portal/
 
 ## Deploy on Vercel
 
-Check check :- [job listig portal website](https://job-listing-portal-nine.vercel.app) 
+Check check :- [job listig portal website](https://job-listing-portal-mocha.vercel.app) 

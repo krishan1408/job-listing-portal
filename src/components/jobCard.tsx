@@ -1,13 +1,12 @@
-// app/components/JobCard.tsx
 "use client";
 
 import React, { JSX, useState } from "react";
+import Image from "next/image";
 
 import { timeAgo } from "@/utils";
+import { IJobData } from "@/interface";
 
 import JobDetailsModal from "./jobDetailModal";
-import { IJobData } from "@/app/page";
-import Image from "next/image";
 
 interface IJobCardProps {
   job: IJobData;

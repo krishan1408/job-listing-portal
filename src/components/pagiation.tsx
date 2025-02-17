@@ -1,52 +1,37 @@
 "use client";
-import { useState, useEffect } from "react";
 
-interface PaginationProps {
-  jobsPerPage: number;
-  totalJobs: number;
-  paginate: (pageNumber: number) => void;
-  currentPage: number;
+interface IPaginationProps {
+  links:{
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+  };
+  onPaginate: (url: string) => void;
 }
 
-export default function Pagination({ jobsPerPage, totalJobs, paginate, currentPage }: PaginationProps) {
-  const [isMobile, setIsMobile] = useState(false);
-  const totalPages = Math.ceil(totalJobs / jobsPerPage);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640); // Adjust breakpoint as needed
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const getPageNumbers = () => {
-    if (isMobile) {
-      return [1, 2, 3, 4, 5, "...", totalPages];
-    }
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  };
+export default function Pagination({ links, onPaginate }: IPaginationProps) {
 
   return (
-    <nav className="mt-4 flex justify-end">
-      <ul className="flex space-x-2">
-        {getPageNumbers().map((number, index) => (
-          <li key={index}>
-            {typeof number === "number" ? (
-              <button
-                onClick={() => paginate(number)}
-                className={`px-4 py-2 ${currentPage === number ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-              >
-                {number}
-              </button>
-            ) : (
-              <span className="px-4 py-2">...</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div className="flex justify-between mt-4">
+      <button
+        onClick={() => links.prev && onPaginate(links.prev)}
+        disabled={!links.prev}
+        className={`px-4 py-2 bg-blue-500 text-white rounded ${
+          !links.prev ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+        }`}
+      >
+        Previous
+      </button>
+      <button
+        onClick={() => links.next && onPaginate(links.next)}
+        disabled={!links.next}
+        className={`px-4 py-2 bg-blue-500 text-white rounded ${
+          !links.next ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+        }`}
+      >
+        Next
+      </button>
+    </div>
   );
 }

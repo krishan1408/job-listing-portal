@@ -3,12 +3,12 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
-import DOMPurify from "dompurify";
 import { JSX } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import DOMPurify from "dompurify";
 
-import { IJobData } from "@/app/page";
+import { IJobData } from "@/interface";
 
 interface IJobDetailsModalProps {
   job: IJobData

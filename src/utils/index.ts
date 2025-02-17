@@ -19,5 +19,20 @@ export function timeAgo(timestamp:number) {
   
     return "Just now"; // Less than an hour
   }
+
+   // Get page number from URL
+   export function getPageFromUrl(url: string): number {
+    try {
+      const parsedUrl = new URL(url);
+      const pageParam = parsedUrl.searchParams.get("page");
+
+      // Convert to a number and ensure it's a valid positive integer
+      const page = pageParam ? parseInt(pageParam, 10) : 1;
+      return Number.isNaN(page) || page < 1 ? 1 : page;
+    } catch (error) {
+      console.error("Invalid URL:", error);
+      return 1; // Default to page 1 if the URL is invalid
+    }
+  }
   
   

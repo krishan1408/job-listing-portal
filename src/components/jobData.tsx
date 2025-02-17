@@ -1,22 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+import { IApiResponse, IJobData } from "@/interface";
+
 import JobCard from "./jobCard";
 import Pagination from "./pagiation";
-import { IApiResponse, IJobData } from "@/app/page";
-
+import { getPageFromUrl } from "@/utils";
 
 interface IJobDataProps {
-  jobData: IApiResponse
+  jobData: IApiResponse;
 }
 
 /**
  * This component is used to show the job data
- * @param {IJobDataProps} props 
- * @returns 
+ * @param {IJobDataProps} props
+ * @returns
  */
 export const JobData = ({ jobData }: IJobDataProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+ 
+  // React states
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "remote" | "onsite">(
     "all"
@@ -24,7 +29,6 @@ export const JobData = ({ jobData }: IJobDataProps) => {
   const [filteredJobs, setFilteredJobs] = useState<IJobData[]>(
     jobData?.data || []
   );
-  const jobsPerPage = 10; // Number of jobs per page
 
   // Filter jobs based on search term and remote/onsite filter
   useEffect(() => {
@@ -47,16 +51,15 @@ export const JobData = ({ jobData }: IJobDataProps) => {
     }
 
     setFilteredJobs(filtered);
-    setCurrentPage(1); // Reset to the first page when filters change
   }, [searchTerm, filterType, jobData]);
 
-  // Paginate jobs
-  const indexOfLastJob = currentPage * jobsPerPage;
-  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = filteredJobs.slice(indexOfFirstJob, indexOfLastJob);
+ 
 
   // Handle page change
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (url: string) => {
+    const pageNumber = getPageFromUrl(url);
+    router.push(`?page=${pageNumber}`);
+  };
 
   return (
     <div className="space-y-6">
@@ -70,7 +73,6 @@ export const JobData = ({ jobData }: IJobDataProps) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full md:w-3/4 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-
         {/* Remote/On-site Filter Dropdown */}
         <select
           value={filterType}
@@ -84,26 +86,21 @@ export const JobData = ({ jobData }: IJobDataProps) => {
           <option value="onsite">On-site Jobs</option>
         </select>
       </div>
-      {currentJobs.length === 0 && <div className="text-center ">
-        No Jobs Found
-        </div>}
+      {filteredJobs?.length === 0 && (
+        <div className="text-center ">No Jobs Found</div>
+      )}
 
       {/* Job List */}
-      <div className="grid grid-cols-1 gap-4">
-
-        
-        {currentJobs.map((job:IJobData,index:number) => (
+      <div className="grid grid-cols-1 gap-4 max-h-[calc(100vh-280px)] h-auto sm:max-h-[calc(100vh-235px)] overflow-y-auto">
+        {filteredJobs?.map((job: IJobData, index: number) => (
           <JobCard key={`${job.id} - ${index}`} job={job} />
         ))}
       </div>
 
       {/* Pagination */}
-      <Pagination
-        jobsPerPage={jobsPerPage}
-        totalJobs={filteredJobs.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
+      {searchTerm?.length === 0 && (
+        <Pagination links={jobData.links} onPaginate={paginate} />
+      )}
     </div>
   );
 };
