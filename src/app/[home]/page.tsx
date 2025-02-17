@@ -4,9 +4,7 @@ import JobData from "@/components/jobData";
 import { IApiResponse } from "@/interface";
 
 interface IHomeProps {
-    params: Promise<{
-        page: number;
-      }>;
+  searchParams: Promise<{ page: number }>;
 }
 
 /**
@@ -14,8 +12,8 @@ interface IHomeProps {
  * @param {IHomeProps} props
  * @returns
  */
-const Home = async ({ params }: IHomeProps) => {
-  const searchParamData = await params;
+const Home = async ({ searchParams }: IHomeProps) => {
+  const searchParamData = await searchParams;
 
   const API_URL = process.env.API_URL;
   if (!API_URL) {
