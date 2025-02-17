@@ -30,7 +30,7 @@ export function timeAgo(timestamp:number) {
       const page = pageParam ? parseInt(pageParam, 10) : 1;
       return Number.isNaN(page) || page < 1 ? 1 : page;
     } catch (error) {
-      console.error("Invalid URL:", error);
+      console.error("Something went worng while parsing the URL",error);
       return 1; // Default to page 1 if the URL is invalid
     }
   }
