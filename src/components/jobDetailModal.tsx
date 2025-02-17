@@ -29,16 +29,16 @@ export const JobDetailsModal=({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="p-4 sm:p-6 border rounded-lg shadow-lg bg-white  relative m-2">
-        <p className="text-center text-lg font-bold mb-2">Job Details</p>
+        <p className="text-center text-lg font-bold mb-6">Job Details</p>
         <div className="overflow-y-auto w-auto sm:w-[700px] h-auto sm:h-[500px] ">
-        <h1 className="text-base mb-1">
+        <h1 className="text-base mb-2">
         <strong>Job title :-</strong>
           {job?.title}</h1>
-        <h2 className="text-base mb-1">
+        <h2 className="text-base mb-2">
           <strong>Company Name :-</strong>
           {job?.company_name}
         </h2>
-        <p className="mb-1 text-base">
+        <p className="mb-2 text-base">
           <strong>Location :-</strong>
           {job?.location}
         </p>

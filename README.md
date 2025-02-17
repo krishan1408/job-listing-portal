@@ -1,7 +1,14 @@
 # Job Listing Portal
 
 ## Description
-Job Listing Portal is a Next.js-based web application that allows users to browse job listings efficiently. It is built with modern web technologies, ensuring a seamless user experience with fast performance.
+The Job Listing Portal is a web application built using Next.js with TypeScript, styled with Tailwind CSS. This platform allows users to explore various job listings efficiently, thanks to the combination of server-side and client-side rendering for enhanced performance. Key features include:
+
+- **Pagination**: Seamlessly browse through a large number of job listings with pagination.
+- **Searchbar**: Easily search for jobs by title, company, or location.
+- **Filters**: Narrow down job listings based on specific criteria like job type, salary range, and experience level.
+- **Job Details View**: A dedicated page to view all the essential details about a specific job posting.
+
+This project leverages both **server components** for optimized loading times and **client components** for dynamic interactivity, ensuring a smooth user experience.
 
 ## Prerequisites
 
