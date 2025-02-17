@@ -36,7 +36,7 @@ pnpm install
 ### Add env var in .env file
 
 ```
-NEXT_PUBLIC_API_URL=<your-api-url>
+API_URL=<your-api-url>
 ```
 
 First, run the development server:
